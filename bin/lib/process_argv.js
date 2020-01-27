@@ -29,19 +29,7 @@ const argv_flag_aliases = {
   "--output":       ["-o"]
 }
 
-const argv_vals = process_argv(argv_flags, argv_flag_aliases)
-
-if (argv_vals["--help"]) {
-  const help = require('./help')
-  console.log(help)
-  process.exit(0)
-}
-
-if (argv_vals["--version"]) {
-  const data = require('../../package.json')
-  console.log(data.version)
-  process.exit(0)
-}
+let argv_vals = {}
 
 const die = (error) => {
   if (!argv_vals["--quiet"]) {
@@ -56,6 +44,25 @@ const die = (error) => {
     }
   }
   process.exit(1)
+}
+
+try {
+  argv_vals = process_argv(argv_flags, argv_flag_aliases)
+}
+catch (error) {
+  die(error)
+}
+
+if (argv_vals["--help"]) {
+  const help = require('./help')
+  console.log(help)
+  process.exit(0)
+}
+
+if (argv_vals["--version"]) {
+  const data = require('../../package.json')
+  console.log(data.version)
+  process.exit(0)
 }
 
 if (!argv_vals["--encrypt"] && !argv_vals["--decrypt"]) {
@@ -75,20 +82,25 @@ if (!argv_vals["--output"]) {
 }
 
 if (!argv_vals["--create"]) {
-  const old_argv = process.argv
+  try {
+    const old_argv = process.argv
 
-  // reprocess a single argv pair w/ more strict constraint.
-  //  - if output path is file: dirname must exist
-  //  - if output path is dir:  dir must exist
-  // don't need to capture and merge output.
-  // only care that validation doesn't throw an exception.
-  const constraint = (path.extname(argv_vals["--output"]).length > 1)
-    ? "path-dirname-exists"
-    : "path-exists"
-  process.argv = [null, null, "--output", argv_vals["--output"]]
-  process_argv({"--output": {file: constraint}}, [])
+    // reprocess a single argv pair w/ more strict constraint.
+    //  - if output path is file: dirname must exist
+    //  - if output path is dir:  dir must exist
+    // don't need to capture and merge output.
+    // only care that validation doesn't throw an exception.
+    const constraint = (path.extname(argv_vals["--output"]).length > 1)
+      ? "path-dirname-exists"
+      : "path-exists"
+    process.argv = [null, null, "--output", argv_vals["--output"]]
+    process_argv({"--output": {file: constraint}}, [])
 
-  process.argv = old_argv
+    process.argv = old_argv
+  }
+  catch (error) {
+    die(error)
+  }
 }
 
 module.exports = {argv_vals, die}

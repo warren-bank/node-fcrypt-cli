@@ -8,10 +8,6 @@ set dir_out="%dir_output%\bin"
 set password="mySuperPass1337"
 
 if not exist "%dir_output%" mkdir "%dir_output%"
-if not exist %zip_in% (
-  echo input .zip file not found
-  exit 0
-)
 if exist %dir_out% rmdir /Q /S %dir_out%
 
 node %fcrypt_js% --decrypt --input %zip_in% --output %dir_out% -c --password %password%

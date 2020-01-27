@@ -31,7 +31,7 @@ options:
 "--algorithm" <algorithm>
     Cryptographic algorithm
     Default: 'aes-256-cbc'
-    Options: `openssl list -cipher-algorithms`
+    Options: \`openssl list -cipher-algorithms\`
 
 "-p" <password>
 "--password" <password>
