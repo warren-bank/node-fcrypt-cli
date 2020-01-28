@@ -25,7 +25,11 @@ options:
 
 "-d"
 "--decrypt"
-    Mode of operation: decrypt input .zip file to output directory
+    Mode of operation: decrypt input .zip file to output .zip file
+
+"-x"
+"--extract"
+    Mode of operation: decrypt input .zip file and extract to output directory
 
 "-a" <algorithm>
 "--algorithm" <algorithm>
@@ -40,13 +44,15 @@ options:
 "-i" <filepath>
 "--input" <filepath>
     Encrypt mode: /path/to/input/directory
-    Decrypt mode: /path/to/input/file.zip
+    Decrypt mode: /path/to/input/file.zip.encrypted
+    Extract mode: /path/to/input/file.zip.encrypted
     Note: input path must exist
 
 "-o" <filepath>
 "--output" <filepath>
-    Encrypt mode: /path/to/output/file.zip
-    Decrypt mode: /path/to/output/directory
+    Encrypt mode: /path/to/output/file.zip.encrypted
+    Decrypt mode: /path/to/output/file.zip
+    Extract mode: /path/to/output/directory
     Note: output directory must exist, unless "-c" option is active
 
 "-c"

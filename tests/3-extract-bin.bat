@@ -4,13 +4,13 @@ set dir_output=%~dp0.\output
 
 set fcrypt_js="%~dp0..\bin\fcrypt.js"
 set zip_in="%dir_output%\bin.zip.aes-256-cbc"
-set zip_out="%dir_output%\bin.zip"
+set dir_out="%dir_output%\bin"
 set password="mySuperPass1337"
 
 if not exist "%dir_output%" mkdir "%dir_output%"
-if exist %zip_out% del /Q /F %zip_out%
+if exist %dir_out% rmdir /Q /S %dir_out%
 
-node %fcrypt_js% --decrypt --input %zip_in% --output %zip_out% -c --password %password%
+node %fcrypt_js% --extract --input %zip_in% --output %dir_out% -c --password %password%
 
 echo.
 pause
