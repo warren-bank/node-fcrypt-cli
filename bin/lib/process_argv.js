@@ -59,7 +59,7 @@ const constrain_output_path = (constraint) => {
       // don't need to capture and merge output.
       // only care that validation doesn't throw an exception.
       process.argv = [null, null, "--output", argv_vals["--output"]]
-      process_argv({"--output": {file: constraint}}, [])
+      process_argv({"--output": {file: constraint}})
 
       process.argv = old_argv
     }

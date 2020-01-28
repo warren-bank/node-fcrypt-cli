@@ -1,6 +1,6 @@
 {
   "name": "@warren-bank/fcrypt-cli",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Command-line utility to store an input directory to an encrypted .zip file, and decrypt and extract an input encrypted .zip file to a directory.",
   "license": "GPL-2.0",
   "bin": {
